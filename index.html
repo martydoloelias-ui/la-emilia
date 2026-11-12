@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Emilia · Pizzería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F8FF;--card:#FFFFFF;--ink:#0B2A5B;--muted:#41557A;--line:#C9D6EE;
+  --blue:#0B3D91;--deep:#082A66;--yellow:#FFC72C;--on-yellow:#0B2A5B;--err:#B3261E;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#07142E;--card:#0E2150;--ink:#EAF0FF;--muted:#A9B9DB;--line:#27407A;--err:#FF8A80;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#07142E;--card:#0E2150;--ink:#EAF0FF;--muted:#A9B9DB;--line:#27407A;--err:#FF8A80;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--deep);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.05rem;line-height:1.55}
+h1,h2,h3{font-family:"Bowlby One","Arial Black",system-ui,sans-serif;font-weight:400;line-height:1.1;margin:0}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
+
+/* Hero */
+.hero{background:var(--deep);color:#fff;padding:3.5rem 0 4rem;overflow:hidden}
+.hero .wrap{display:grid;gap:2.5rem;align-items:center}
+.hero h1{font-size:clamp(3.4rem,15vw,7.5rem);color:var(--yellow);letter-spacing:.01em}
+.hero p{max-width:30rem;font-size:1.2rem;margin:1.2rem 0 1.8rem;color:#DCE6FF}
+.btn{display:inline-block;border:0;border-radius:999px;background:var(--yellow);color:var(--on-yellow);font:800 1.05rem "Nunito",system-ui,sans-serif;padding:.9rem 1.7rem;text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.05)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.sello{justify-self:start;width:12.5rem;aspect-ratio:1;border-radius:50%;background:var(--yellow);color:var(--on-yellow);display:grid;place-content:center;text-align:center;transform:rotate(-8deg);border:6px solid #fff;padding:1rem}
+.sello b{font:400 1.3rem/1.15 "Bowlby One","Arial Black",sans-serif;display:block}
+.sello span{font-weight:800;font-size:.95rem;line-height:1.25;display:block;margin-top:.35rem}
+@media (min-width:44rem){.hero .wrap{grid-template-columns:1fr auto}.sello{justify-self:end;width:15rem}.sello b{font-size:1.6rem}}
+
+/* Promos */
+.promos{background:var(--yellow);color:var(--on-yellow);padding:3.5rem 0}
+.promos h2{font-size:clamp(1.7rem,5vw,2.5rem);max-width:34rem}
+.promos .sub{margin:.8rem 0 1.8rem;max-width:36rem;font-weight:700}
+.grid{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr))}
+.tier{background:var(--card);color:var(--ink);border:3px solid var(--deep);border-radius:1rem;padding:1.1rem 1rem}
+.tier h3{font-size:1.25rem}
+.tier .each{font-size:1.7rem;font-weight:800;margin:.5rem 0 0}
+.tier .each small{font-size:.9rem;font-weight:700;color:var(--muted)}
+.tier .tot{margin:.2rem 0 0;color:var(--muted);font-weight:700}
+.tier .save{margin:.6rem 0 0;font-weight:800;color:var(--blue)}
+.tier.on{background:var(--deep);color:#fff;border-color:var(--deep);transform:translateY(-4px)}
+.tier.on .tot,.tier.on .each small,.tier.on .save{color:var(--yellow)}
+.note{margin:1.4rem 0 0;font-weight:800}
+
+/* Pedido */
+.order{padding:3.5rem 0}
+.order h2{font-size:clamp(1.7rem,5vw,2.5rem);margin-bottom:1.6rem}
+.cols{display:grid;gap:2rem}
+@media (min-width:52rem){.cols{grid-template-columns:1.2fr 1fr;align-items:start}}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:.7rem}
+.item{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--card);border:2px solid var(--line);border-radius:.9rem;padding:.8rem 1rem}
+.item h3{font:800 1.1rem "Nunito",system-ui,sans-serif}
+.item p{margin:.1rem 0 0;color:var(--muted);font-size:.95rem}
+.stepper{display:flex;align-items:center;gap:.6rem;flex:none}
+.stepper button{width:2.5rem;height:2.5rem;border-radius:50%;border:2px solid var(--blue);background:transparent;color:var(--ink);font:800 1.3rem/1 "Nunito",sans-serif;cursor:pointer}
+.stepper button:hover{background:var(--yellow);border-color:var(--yellow);color:var(--on-yellow)}
+.stepper output{min-width:1.6rem;text-align:center;font-weight:800;font-size:1.15rem}
+.panel{background:var(--card);border:3px solid var(--blue);border-radius:1rem;padding:1.3rem}
+.panel h3{font-size:1.3rem;margin-bottom:.8rem}
+.lines{list-style:none;margin:0 0 .8rem;padding:0;display:grid;gap:.25rem}
+.lines li{display:flex;justify-content:space-between;gap:1rem}
+.empty{color:var(--muted)}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--line);padding-top:.8rem;margin-top:.6rem;font-weight:800;font-size:1.3rem}
+.saving{margin:.3rem 0 0;color:var(--blue);font-weight:800}
+:root[data-theme="dark"] .saving{color:var(--yellow)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .saving{color:var(--yellow)}}
+form{display:grid;gap:.9rem;margin-top:1.2rem}
+label,legend{font-weight:800;font-size:.98rem}
+input[type=text],select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:.6rem;padding:.65rem .75rem;margin-top:.25rem}
+fieldset{border:0;padding:0;margin:0}
+.radios{display:flex;gap:1.2rem;margin-top:.3rem}
+.radios label{font-weight:700;display:flex;align-items:center;gap:.4rem}
+.err{margin:0;color:var(--err);font-weight:800;min-height:1.2em}
+.panel .btn{width:100%;background:var(--blue);color:#fff}
+.hint{margin:.2rem 0 0;color:var(--muted);font-size:.92rem}
+footer{background:var(--deep);color:#DCE6FF;padding:2rem 0;text-align:center}
+footer strong{color:var(--yellow);font-family:"Bowlby One","Arial Black",sans-serif;font-weight:400;font-size:1.3rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tier.on{transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <h1>La Emilia</h1>
+      <p>Pizzas hechas al momento. Armá tu pedido acá y lo confirmamos por WhatsApp.</p>
+      <a class="btn" href="#pedido">Armá tu pedido</a>
+    </div>
+    <div class="sello">
+      <b>Cuantas más pizzas comprás, menos pagás</b>
+    </div>
+  </div>
+</header>
+
+<section class="promos" id="promos">
+  <div class="wrap">
+    <h2>Cuantas más pizzas juntás, menos pagás por cada una</h2>
+    <p class="sub">El precio por pizza baja $500 con cada pizza que sumás, hasta llegar a 5.</p>
+    <div class="grid" id="tiers"></div>
+    <p class="note">Sumá una gaseosa 1,5 L a cualquier promo por <span id="gPrice"></span>.</p>
+  </div>
+</section>
+
+<main class="order" id="pedido">
+  <div class="wrap">
+    <h2>Armá tu pedido</h2>
+    <div class="cols">
+      <ul class="items" id="items"></ul>
+
+      <div class="panel">
+        <h3>Tu pedido</h3>
+        <ul class="lines" id="lines"></ul>
+        <div class="total"><span>Total</span><span id="total">$0</span></div>
+        <p class="saving" id="saving"></p>
+
+        <form id="form" novalidate>
+          <label>Nombre
+            <input type="text" id="nombre" autocomplete="name" placeholder="Tu nombre">
+          </label>
+          <fieldset>
+            <legend>¿Cómo lo recibís?</legend>
+            <div class="radios">
+              <label><input type="radio" name="entrega" value="Retiro en el local" checked> Retiro</label>
+              <label><input type="radio" name="entrega" value="Envío"> Envío</label>
+            </div>
+          </fieldset>
+          <label id="dirWrap" hidden>Dirección
+            <input type="text" id="direccion" autocomplete="street-address" placeholder="Calle, número y barrio">
+          </label>
+          <label>Forma de pago
+            <select id="pago">
+              <option>Efectivo</option>
+              <option>Transferencia</option>
+              <option>Mercado Pago</option>
+            </select>
+          </label>
+          <label>Aclaraciones (opcional)
+            <textarea id="notas" rows="2" placeholder="Ej.: sin aceitunas, tocar timbre 2"></textarea>
+          </label>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn" type="submit">Pedir por WhatsApp</button>
+          <p class="hint">Se abre WhatsApp con tu pedido ya escrito. Solo tenés que tocar enviar.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>La Emilia</strong>
+  <p>Pizzería · Pedidos por WhatsApp</p>
+</footer>
+
+<script>
+// ====== Editá estos datos ======
+const WHATSAPP_NUMBER = "5491123782029"; // código de país + área sin 0 + número sin 15, sin signos
+const PRECIO_BASE = 15000;   // precio de una pizza
+const DESCUENTO = 500;      // baja por cada pizza que se suma
+const MAX_ESCALON = 5;       // el descuento llega hasta 5 pizzas
+const PRECIO_GASEOSA = 3000; // gaseosa 1,5 L
+const MENU = [
+  { id: "muzza", nombre: "Muzzarella", desc: "Salsa de tomate, muzzarella y aceitunas." },
+  { id: "fuga", nombre: "Fugazzeta", desc: "Cebolla y abundante muzzarella." },
+  { id: "napo", nombre: "Napolitana", desc: "Muzzarella, rodajas de tomate, ajo y albahaca." },
+  { id: "jym", nombre: "Jamón y morrones", desc: "Muzzarella, jamón cocido y morrones." },
+  { id: "cala", nombre: "Calabresa", desc: "Muzzarella y rodajas de longaniza." }
+];
+// ================================
+
+const money = n => new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(n);
+const precioPorPizza = n => PRECIO_BASE - DESCUENTO * (Math.min(Math.max(n, 1), MAX_ESCALON) - 1);
+const qty = {}; MENU.forEach(p => qty[p.id] = 0); qty.gaseosa = 0;
+const $ = id => document.getElementById(id);
+const pizzas = () => MENU.reduce((s, p) => s + qty[p.id], 0);
+
+function renderTiers() {
+  const n = pizzas();
+  const active = n === 0 ? 0 : Math.min(n, MAX_ESCALON);
+  let html = "";
+  for (let i = 1; i <= MAX_ESCALON; i++) {
+    const c = precioPorPizza(i);
+    const ahorro = PRECIO_BASE * i - c * i;
+    html += `<div class="tier${active === i ? " on" : ""}">
+      <h3>${i} ${i === 1 ? "pizza" : "pizzas"}${i === MAX_ESCALON ? " o más" : ""}</h3>
+      <p class="each">${money(c)} <small>c/u</small></p>
+      <p class="tot">${i} ${i === 1 ? "pizza" : "pizzas"}: ${money(c * i)}</p>
+      <p class="save">${ahorro ? "Ahorrás " + money(ahorro) : "Precio base"}</p>
+    </div>`;
+  }
+  $("tiers").innerHTML = html;
+}
+
+function renderItems() {
+  const rows = MENU.map(p => `<li class="item">
+      <div><h3>${p.nombre}</h3><p>${p.desc}</p></div>
+      <div class="stepper">
+        <button type="button" data-id="${p.id}" data-d="-1" aria-label="Quitar una ${p.nombre}">−</button>
+        <output id="q-${p.id}">0</output>
+        <button type="button" data-id="${p.id}" data-d="1" aria-label="Agregar una ${p.nombre}">+</button>
+      </div></li>`).join("");
+  const gas = `<li class="item">
+      <div><h3>Gaseosa 1,5 L</h3><p>${money(PRECIO_GASEOSA)} cada una.</p></div>
+      <div class="stepper">
+        <button type="button" data-id="gaseosa" data-d="-1" aria-label="Quitar una gaseosa">−</button>
+        <output id="q-gaseosa">0</output>
+        <button type="button" data-id="gaseosa" data-d="1" aria-label="Agregar una gaseosa">+</button>
+      </div></li>`;
+  $("items").innerHTML = rows + gas;
+}
+
+function calc() {
+  const n = pizzas();
+  const c = n ? precioPorPizza(n) : 0;
+  const totalPizzas = n * c;
+  const totalGas = qty.gaseosa * PRECIO_GASEOSA;
+  return { n, c, totalPizzas, totalGas, total: totalPizzas + totalGas, ahorro: n * PRECIO_BASE - totalPizzas };
+}
+
+function render() {
+  const r = calc();
+  Object.keys(qty).forEach(k => { const o = $("q-" + k); if (o) o.textContent = qty[k]; });
+  const lines = [];
+  MENU.forEach(p => { if (qty[p.id]) lines.push(`<li><span>${qty[p.id]} × ${p.nombre}</span><span>${money(qty[p.id] * r.c)}</span></li>`); });
+  if (qty.gaseosa) lines.push(`<li><span>${qty.gaseosa} × Gaseosa 1,5 L</span><span>${money(r.totalGas)}</span></li>`);
+  $("lines").innerHTML = lines.length ? lines.join("") : `<li class="empty">Todavía no elegiste nada.</li>`;
+  $("total").textContent = money(r.total);
+  $("saving").textContent = r.ahorro ? `Con la promo ahorrás ${money(r.ahorro)}.` : "";
+  renderTiers();
+}
+
+function mensaje(r) {
+  const f = document.forms.form;
+  const entrega = f.entrega.value;
+  const partes = ["Hola, La Emilia! Quiero hacer un pedido:"];
+  MENU.forEach(p => { if (qty[p.id]) partes.push(`- ${qty[p.id]} x ${p.nombre}`); });
+  if (qty.gaseosa) partes.push(`- ${qty.gaseosa} x Gaseosa 1,5 L`);
+  partes.push(`Total: ${money(r.total)}`);
+  partes.push(`Nombre: ${$("nombre").value.trim()}`);
+  partes.push(`Entrega: ${entrega}${entrega === "Envío" ? " - " + $("direccion").value.trim() : ""}`);
+  partes.push(`Pago: ${$("pago").value}`);
+  const notas = $("notas").value.trim();
+  if (notas) partes.push(`Aclaraciones: ${notas}`);
+  return partes.join("\n");
+}
+
+$("gPrice").textContent = money(PRECIO_GASEOSA);
+renderItems();
+render();
+
+$("items").addEventListener("click", e => {
+  const b = e.target.closest("button[data-id]");
+  if (!b) return;
+  const id = b.dataset.id;
+  qty[id] = Math.max(0, Math.min(30, qty[id] + Number(b.dataset.d)));
+  render();
+});
+
+document.querySelectorAll("input[name=entrega]").forEach(r => r.addEventListener("change", () => {
+  $("dirWrap").hidden = document.forms.form.entrega.value !== "Envío";
+}));
+
+$("form").addEventListener("submit", e => {
+  e.preventDefault();
+  const r = calc();
+  const err = $("err");
+  err.textContent = "";
+  if (!r.n && !qty.gaseosa) { err.textContent = "Elegí al menos una pizza para armar el pedido."; return; }
+  if (!$("nombre").value.trim()) { err.textContent = "Escribí tu nombre."; $("nombre").focus(); return; }
+  if (document.forms.form.entrega.value === "Envío" && !$("direccion").value.trim()) { err.textContent = "Escribí la dirección para el envío."; $("direccion").focus(); return; }
+  const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(mensaje(r));
+  window.open(url, "_blank", "noopener");
+});
+</script>
+</body>
+</html>
